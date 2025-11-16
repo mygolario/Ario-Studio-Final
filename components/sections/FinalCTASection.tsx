@@ -8,19 +8,19 @@ import { motion } from "framer-motion";
 export default function FinalCTASection() {
   return (
     <Section className="relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5" />
       <Container className="relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto glass-strong rounded-2xl p-12"
+          className="text-center max-w-4xl mx-auto glass-premium rounded-3xl p-16 glow-soft"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
+          <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6">
             Ready to build your <span className="gradient-text">next chapter?</span>
           </h2>
-          <p className="text-xl text-white/70 mb-8">
+          <p className="text-xl md:text-2xl text-white/70 mb-10 leading-relaxed">
             Let's turn your vision into a cinematic web experience that converts visitors into
             customers.
           </p>
@@ -32,7 +32,7 @@ export default function FinalCTASection() {
               View Our Work
             </Button>
           </div>
-          <p className="text-sm text-white/50 mt-6">
+          <p className="text-sm text-white/40 mt-8">
             Typical response time: 24-48 hours • Free initial consultation
           </p>
         </motion.div>
@@ -40,4 +40,3 @@ export default function FinalCTASection() {
     </Section>
   );
 }
-

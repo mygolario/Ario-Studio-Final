@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Globe, Sparkles, Palette, Code, Briefcase, ArrowRight } from "lucide-react";
 import { mainNav, megaMenuItems } from "@/data/nav";
+import Button from "@/components/ui/Button";
 
 const iconMap: Record<string, any> = {
   globe: Globe,
@@ -30,41 +31,47 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "glass-strong py-3"
-          : "bg-transparent py-4"
+          ? "glass-premium py-3 shadow-lg"
+          : "bg-transparent/50 backdrop-blur-sm py-5"
       }`}
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 group">
+          <Link href="/" className="flex items-center space-x-2 group z-10">
             <motion.span
-              className="text-2xl font-heading font-bold gradient-text"
+              className="text-xl md:text-2xl font-heading font-bold gradient-text"
               whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400 }}
             >
               Ario Studio
             </motion.span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-10">
             {mainNav.map((item) => (
-              <Link
+              <div
                 key={item.href}
-                href={item.href}
-                className="relative text-white/80 hover:text-white transition-colors duration-200 group"
+                className="relative"
                 onMouseEnter={() => item.label === "Services" && setIsMegaMenuOpen(true)}
-                onMouseLeave={() => setIsMegaMenuOpen(false)}
+                onMouseLeave={() => item.label === "Services" && setIsMegaMenuOpen(false)}
               >
-                {item.label}
-                <motion.span
-                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-300"
-                  initial={{ width: 0 }}
-                  whileHover={{ width: "100%" }}
-                />
-              </Link>
+                <Link
+                  href={item.href}
+                  className="relative text-white/70 hover:text-white transition-all duration-300 text-sm font-medium group"
+                >
+                  {item.label}
+                  <motion.span
+                    className="absolute -bottom-1 left-0 h-[1px] bg-gradient-to-r from-purple-500 via-blue-500 to-transparent"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </Link>
+              </div>
             ))}
             <Button href="/contact" variant="primary" size="sm">
               Start a Project
@@ -73,7 +80,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white p-2"
+            className="md:hidden text-white/80 hover:text-white p-2 z-10 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -81,21 +88,21 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mega Menu */}
+        {/* Cinematic Mega Menu */}
         <AnimatePresence>
           {isMegaMenuOpen && (
             <motion.div
-              className="hidden md:block absolute top-full left-0 right-0 mt-2"
-              initial={{ opacity: 0, y: -10 }}
+              className="hidden md:block absolute top-full left-0 right-0 mt-4"
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
               onMouseEnter={() => setIsMegaMenuOpen(true)}
               onMouseLeave={() => setIsMegaMenuOpen(false)}
             >
               <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="glass-strong rounded-2xl p-8 mt-4">
-                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="glass-premium rounded-3xl p-10 mt-2 glow-soft border border-white/10">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
                     {megaMenuItems.map((item, index) => {
                       const Icon = iconMap[item.icon || "globe"];
                       return (
@@ -103,22 +110,24 @@ export default function Header() {
                           key={item.href}
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.05 }}
+                          transition={{ delay: index * 0.04, duration: 0.3 }}
                         >
                           <Link
                             href={item.href}
-                            className="group block p-4 rounded-lg hover:bg-white/5 transition-colors"
+                            className="group block p-5 rounded-2xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-white/10"
                             onClick={() => setIsMegaMenuOpen(false)}
                           >
-                            <div className="flex items-start space-x-3">
+                            <div className="flex items-start space-x-4">
                               {Icon && (
-                                <Icon className="w-5 h-5 text-purple-400 mt-1 group-hover:text-purple-300 transition-colors" />
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center group-hover:from-purple-500/30 group-hover:to-blue-500/30 transition-all duration-300">
+                                  <Icon className="w-5 h-5 text-purple-400 group-hover:text-purple-300 transition-colors" />
+                                </div>
                               )}
-                              <div>
-                                <h3 className="font-semibold text-white group-hover:text-purple-300 transition-colors">
+                              <div className="flex-1">
+                                <h3 className="font-semibold text-white mb-1.5 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 transition-all duration-300">
                                   {item.title}
                                 </h3>
-                                <p className="text-sm text-white/60 mt-1">
+                                <p className="text-sm text-white/50 leading-relaxed">
                                   {item.description}
                                 </p>
                               </div>
@@ -138,29 +147,40 @@ export default function Header() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="md:hidden fixed inset-0 top-[73px] glass-strong"
+              className="md:hidden fixed inset-0 top-[73px] glass-premium"
               initial={{ opacity: 0, x: "100%" }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: "100%" }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             >
               <div className="container mx-auto px-4 py-8">
-                <div className="flex flex-col space-y-4">
-                  {mainNav.map((item) => (
-                    <Link
+                <div className="flex flex-col space-y-6">
+                  {mainNav.map((item, index) => (
+                    <motion.div
                       key={item.href}
-                      href={item.href}
-                      className="text-xl text-white/80 hover:text-white py-2"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
                     >
-                      {item.label}
-                    </Link>
+                      <Link
+                        href={item.href}
+                        className="text-xl text-white/80 hover:text-white py-3 block transition-colors"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
                   ))}
-                  <div className="pt-4">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="pt-4"
+                  >
                     <Button href="/contact" variant="primary" size="md" className="w-full">
                       Start a Project
                     </Button>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </motion.div>
@@ -170,7 +190,3 @@ export default function Header() {
     </header>
   );
 }
-
-// Import Button component
-import Button from "@/components/ui/Button";
-

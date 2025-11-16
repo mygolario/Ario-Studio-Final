@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { DM_Sans, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -17,9 +17,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Ario Studio | Cinematic Web Design & AI Product Development",
+  title: "Ario Studio | Ultra-Luxury AI Web Experiences for Founders",
   description:
-    "Cinematic web experiences for founders and modern brands. Led by Ario Kaveh – Web & AI Product Designer.",
+    "Ultra-luxury AI web experiences for founders. Led by Ario Kaveh – web, AI product, and MVP design.",
 };
 
 export default function RootLayout({
@@ -28,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${spaceGrotesk.variable}`}>
-      <body className="min-h-screen bg-[#0a0a0a] text-[#f5f5f5]">
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+      <body className="min-h-screen bg-[#050505] text-[#f5f5f5] relative">
         <Header />
         <main className="relative">{children}</main>
         <Footer />

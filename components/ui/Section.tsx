@@ -18,7 +18,7 @@ export default function Section({ children, className = "", id }: SectionProps) 
     <section
       id={id}
       ref={ref}
-      className={`relative py-20 md:py-32 ${className}`}
+      className={`relative section-padding ${className}`}
     >
       <motion.div
         initial={{ opacity: 0, y: 30 }}

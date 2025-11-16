@@ -17,9 +17,9 @@ export default function Card({
   return (
     <motion.div
       onClick={onClick}
-      className={`glass rounded-xl p-6 ${className} ${onClick ? "cursor-pointer" : ""}`}
-      whileHover={hover ? { y: -4, scale: 1.02 } : {}}
-      transition={{ duration: 0.2 }}
+      className={`glass-premium rounded-2xl p-6 ${className} ${onClick ? "cursor-pointer" : ""}`}
+      whileHover={hover ? { y: -6, scale: 1.02 } : {}}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {children}
     </motion.div>
